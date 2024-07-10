@@ -1,0 +1,1 @@
+print("UP fans analys")
