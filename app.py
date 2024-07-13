@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
-@app.route('/videos', methods=['GET'])
+@app.route('/up/videos', methods=['GET'])
 def select_video():
     bid = request.args.get('bid')
     title = request.args.get('title')

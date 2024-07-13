@@ -16,7 +16,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     if bid:
         query += f" AND bid = '{bid}'"
     if title:
-        query += f" AND title LIKE '%{title}%'"
+        query += f" AND MATCH(title) AGAINST('{title}' IN NATURAL LANGUAGE MODE)"
     if pubdate_start:
         if not pubdate_end:
             pubdate_end = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -26,7 +26,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     if duration_max:
         query += f" AND duration <= {duration_max}"
     if uname:
-        query += f" AND uname LIKE '%{uname}%'"
+        f" AND MATCH(title) AGAINST('{uname}' IN NATURAL LANGUAGE MODE)"
     if tags:
         query += f" AND tags LIKE '%{tags}%'"
 
@@ -47,6 +47,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
         query += " ORDER BY favorite DESC"
 
     cursor.execute(query)
+    print(query)
     result = cursor.fetchall()
     # 转换为dataframe
     columns = [desc[0] for desc in cursor.description]
@@ -54,6 +55,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
     result_json = df.to_json(orient='records', force_ascii=False)
+
     return result_json
 
 
