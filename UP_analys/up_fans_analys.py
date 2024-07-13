@@ -1,1 +1,0 @@
-print("UP fans analys")
