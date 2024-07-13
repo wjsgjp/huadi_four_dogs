@@ -6,13 +6,12 @@ db = pymysql.connect(host='localhost', user='root', password='18921190757ytk', d
 import pandas as pd
 import datetime
 
-
+#筛选视频信息
 def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, duration_min=None, duration_max=None,
                   view=None, like=None, coin=None, share=None, danmaku=None, reply=None, favorite=None,
                   uname=None, tags=None):
     cursor = db.cursor()
     query = "SELECT * FROM up_video_info WHERE 1=1"
-
     # Add conditions based on the input parameters
     if bid:
         query += f" AND bid = '{bid}'"
@@ -50,4 +49,26 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
 
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
-    return df
+    result_json = df.to_json(orient='records', force_ascii=False)
+    return result_json
+
+
+#计算UP主的视频总播放量
+def calculate_up_viewcount(userid):
+    cursor = db.cursor()
+    #计算同一个uid的所有播放量
+    sql=f" select sum(view) from up_video_info where uid={userid}"
+    cursor.execute(sql)
+    result=cursor.fetchall()
+    result_df=pd.DataFrame(result)
+    return result_df
+
+#计算UP主视频总点赞量
+def calculate_up_likecount(userid):
+    cursor = db.cursor()
+    #计算同一个uid的所有播放量
+    sql=f" select sum(`like`) from up_video_info where uid={userid}"
+    cursor.execute(sql)
+    result=cursor.fetchall()
+    result_df=pd.DataFrame(result)
+    return result_df
