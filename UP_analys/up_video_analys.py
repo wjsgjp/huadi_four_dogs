@@ -3,18 +3,24 @@
 import pymysql
 db = pymysql.connect(host='localhost', user='root', password='18921190757ytk', database='zion')
 
+import pandas as pd
+import datetime
+
 
 def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, duration_min=None, duration_max=None,
                   view=None, like=None, coin=None, share=None, danmaku=None, reply=None, favorite=None,
                   uname=None, tags=None):
     cursor = db.cursor()
-    query = "SELECT title,view FROM up_video_info WHERE 1=1"
+    query = "SELECT * FROM up_video_info WHERE 1=1"
+
     # Add conditions based on the input parameters
     if bid:
         query += f" AND bid = '{bid}'"
     if title:
         query += f" AND title LIKE '%{title}%'"
-    if pubdate_start and pubdate_end:
+    if pubdate_start:
+        if not pubdate_end:
+            pubdate_end = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         query += f" AND pubdate BETWEEN '{pubdate_start}' AND '{pubdate_end}'"
     if duration_min:
         query += f" AND duration >= {duration_min}"
@@ -39,4 +45,9 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
 
     cursor.execute(query)
     result = cursor.fetchall()
-    return result
+    # 转换为dataframe
+    columns = [desc[0] for desc in cursor.description]
+
+    # Convert result to DataFrame
+    df = pd.DataFrame(result, columns=columns)
+    return df
