@@ -9,7 +9,7 @@ import datetime
 #筛选视频信息
 def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, duration_min=None, duration_max=None,
                   view=None, like=None, coin=None, share=None, danmaku=None, reply=None, favorite=None,
-                  uname=None, tags=None):
+                  uname=None, tags=None,date_order_desc=None,date_order_asc=None):
     cursor = db.cursor()
     query = "SELECT * FROM up_video_info WHERE 1=1"
     # Add conditions based on the input parameters
@@ -33,6 +33,10 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     # Add sorting conditions
     if view:
         query += " ORDER BY view DESC"
+    elif date_order_desc:
+        query += "ORDER BY pubdate DESC "
+    elif date_order_asc:
+        query += "ORDER BY pubdate asc "
     elif like:
         query += " ORDER BY like DESC"
     elif coin:
@@ -53,22 +57,3 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     return result_json
 
 
-#计算UP主的视频总播放量
-def calculate_up_viewcount(userid):
-    cursor = db.cursor()
-    #计算同一个uid的所有播放量
-    sql=f" select sum(view) from up_video_info where uid={userid}"
-    cursor.execute(sql)
-    result=cursor.fetchall()
-    result_df=pd.DataFrame(result)
-    return result_df
-
-#计算UP主视频总点赞量
-def calculate_up_likecount(userid):
-    cursor = db.cursor()
-    #计算同一个uid的所有播放量
-    sql=f" select sum(`like`) from up_video_info where uid={userid}"
-    cursor.execute(sql)
-    result=cursor.fetchall()
-    result_df=pd.DataFrame(result)
-    return result_df

@@ -22,7 +22,19 @@ def select_video():
     favorite = request.args.get('favorite')
     uname = request.args.get('uname')
     tags = request.args.get('tags')
-    result_json=select_videos(bid, title, pubdate_start, pubdate_end, duration_min, duration_max,view, like, coin, share, danmaku, reply, favorite,uname, tags)
+    date_order_desc=request.args.get('date_order_desc')
+    date_order_asc=request.args.get('date_order_asc')
+    result_json=select_videos(bid, title, pubdate_start, pubdate_end, duration_min, duration_max,view, like, coin, share, danmaku, reply, favorite,uname, tags,date_order_desc,date_order_asc)
     return result_json
+
+
+@app.route('/up',methods=['GET'])
+def select_up():
+    return "welcomte to up"
+
+
+@app.route('/recommend',methods=['GET'])
+def recommed():
+    return "welcomte to recommend"
 if __name__ == '__main__':
     app.run()
