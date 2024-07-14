@@ -16,7 +16,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     if bid:
         query += f" AND bid = '{bid}'"
     if title:
-        query += f" AND MATCH(title) AGAINST('{title}' IN NATURAL LANGUAGE MODE)"
+        query += f" AND title LIKE '%{title}%'"
     if pubdate_start:
         if not pubdate_end:
             pubdate_end = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -26,7 +26,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     if duration_max:
         query += f" AND duration <= {duration_max}"
     if uname:
-        f" AND MATCH(title) AGAINST('{uname}' IN NATURAL LANGUAGE MODE)"
+        query += f" AND uname LIKE '%{uname}%'"
     if tags:
         query += f" AND tags LIKE '%{tags}%'"
 
@@ -49,6 +49,8 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
         query += " ORDER BY danmaku DESC"
     elif reply:
         query += " ORDER BY reply DESC"
+    else:
+        query += " ORDER BY view DESC"
 
     cursor.execute(query)
     print(query)

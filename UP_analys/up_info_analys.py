@@ -18,9 +18,9 @@ def select_up_info(name=None, profile=None, fans_limit=None, likes=None, plays=N
     if uid:
         query += f" AND uid = '{uid}'"
     if name:
-        query += f" AND MATCH(name) AGAINST('{name}' IN NATURAL LANGUAGE MODE)"
+        query += f" AND name LIKE '%{name}%'"
     if profile:
-        query += f" AND MATCH(profile) AGAINST('{profile}' IN NATURAL LANGUAGE MODE)"
+        query += f" AND profile LIKE '%{profile}%'"
 
     if fans_limit:
         # 按照粉丝数量排序
