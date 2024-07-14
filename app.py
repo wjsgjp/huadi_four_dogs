@@ -32,12 +32,18 @@ def select_video():
 @app.route('/up',methods=['GET'])
 def select_up():
     # 获取参数
+    #按照up主名字搜索
     name=request.args.get('name')
+    # 按照up主简介搜索
     profile=request.args.get('profile')
+    # 按照up主uid搜索
+    uid = request.args.get('uid')
+    # 按照粉丝数搜索（下界）
     fans_limit=request.args.get('fans_limit')
+    # 按照up主点赞数降序
     likes=request.args.get('likes')
+    # 按照up主播放数降序
     plays=request.args.get('plays')
-    uid=request.args.get('uid')
     result_json=select_up_info(name,profile,fans_limit,likes,plays,uid)
     return result_json
 

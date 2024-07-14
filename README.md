@@ -93,14 +93,14 @@ GET http://127.0.0.1:5000/up?name=新华社&fans=True
 
 **参数**:
 
-| 参数名称 | 参数类型 | 是否必填 | 参数描述 |
-| --- | --- | --- | --- |
-| `name` | string | 否 | 使用全文搜索匹配 `name` 字段 |
-| `profile` | string | 否 | 使用全文搜索匹配 `profile` 字段 |
-| `fans` | boolean | 否 | 如果为 `True`，按粉丝数量降序排序 |
-| `likes` | boolean | 否 | 如果为 `True`，按点赞数量降序排序 |
-| `plays` | boolean | 否 | 如果为 `True`，按播放数量降序排序 |
-| `uid` | string | 否 | 精确匹配 `uid` 字段 |
+| 参数名称         | 参数类型    | 是否必填 | 参数描述                  |
+|--------------|---------| --- |-----------------------|
+| `name`       | string  | 否 | 使用全文搜索匹配 `name` 字段    |
+| `profile`    | string  | 否 | 使用全文搜索匹配 `profile` 字段 |
+| `fans_limit` | bigint  | 否 | 查询粉丝数量大于等于 `fans_limit` 的 UP 主 |                
+| `likes`      | boolean | 否 | 如果为 `True`，按点赞数量降序排序  |
+| `plays`      | boolean | 否 | 如果为 `True`，按播放数量降序排序  |
+| `uid`        | string  | 否 | 精确匹配 `uid` 字段         |
 
 **响应**:
 **响应参数**:

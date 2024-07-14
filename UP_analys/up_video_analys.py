@@ -45,6 +45,10 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
         query += " ORDER BY share DESC"
     elif favorite:
         query += " ORDER BY favorite DESC"
+    elif danmaku:
+        query += " ORDER BY danmaku DESC"
+    elif reply:
+        query += " ORDER BY reply DESC"
 
     cursor.execute(query)
     print(query)
