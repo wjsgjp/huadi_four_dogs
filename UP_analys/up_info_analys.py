@@ -10,6 +10,41 @@ db = pymysql.connect(host='localhost', user='root', password='18921190757ytk', d
 import pandas as pd
 
 import datetime
+
+# 查询Up主
+def select_up_info(name=None, profile=None, fans_limit=None, likes=None, plays=None, uid=None):
+    cursor = db.cursor()
+    query = "SELECT * FROM up_info WHERE 1 = 1"
+    if uid:
+        query += f" AND uid = '{uid}'"
+    if name:
+        query += f" AND MATCH(name) AGAINST('{name}' IN NATURAL LANGUAGE MODE)"
+    if profile:
+        query += f" AND MATCH(profile) AGAINST('{profile}' IN NATURAL LANGUAGE MODE)"
+
+    if fans_limit:
+        # 按照粉丝数量排序
+        query += f" AND fans>= '{fans_limit}  "
+
+    if likes:
+        # 按照点赞数量排序
+        query += f" ORDER BY likes DESC"
+    elif plays:
+        # 按照播放数量排序
+        query += f" ORDER BY plays DESC"
+    else:
+        query += f" ORDER BY fans DESC"
+
+
+    cursor.execute(query)
+    print(query)
+    result = cursor.fetchall()
+    # 转换为dataframe
+    columns = [desc[0] for desc in cursor.description]
+    # Convert result to DataFrame
+    df = pd.DataFrame(result, columns=columns)
+    result_json = df.to_json(orient='records', force_ascii=False)
+    return result_json
 #获取UP主头像
 def get_img_url(mid):
     # Wbi签名相关函数

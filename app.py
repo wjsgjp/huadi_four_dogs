@@ -1,5 +1,6 @@
 from flask import Flask, request
 from UP_analys.up_video_analys  import select_videos
+from UP_analys.up_info_analys import select_up_info
 app = Flask(__name__)
 
 @app.route('/')
@@ -30,7 +31,16 @@ def select_video():
 
 @app.route('/up',methods=['GET'])
 def select_up():
-    return "welcomte to up"
+    # 获取参数
+    name=request.args.get('name')
+    profile=request.args.get('profile')
+    fans_limit=request.args.get('fans_limit')
+    likes=request.args.get('likes')
+    plays=request.args.get('plays')
+    uid=request.args.get('uid')
+    result_json=select_up_info(name,profile,fans_limit,likes,plays,uid)
+    return result_json
+
 
 
 @app.route('/recommend',methods=['GET'])
