@@ -1,5 +1,6 @@
 #连接mysql数据库
 #连接mysql数据库
+import os
 from functools import reduce
 from hashlib import md5
 import urllib.parse
@@ -143,3 +144,26 @@ def generate_avatar_urls():
         update_query = f"UPDATE up_info SET img_url = '{avatar_url}' WHERE uid = {uid}"
         cursor.execute(update_query)
         db.commit()
+
+#为UP计算投稿视频数量
+def count_non_empty_lines():
+    folder_path = "bv_list_all"
+    non_empty_lines_count = 0
+    for filename in os.listdir(folder_path):
+
+        if filename.endswith(".txt"):
+            file_path = os.path.join(folder_path, filename)
+            # 提取filename中的名字
+            name = filename.split('_')[0]
+            print(name)
+            with open(file_path, 'r') as file:
+                non_empty_lines = sum(1 for line in file if line.strip())
+                print(non_empty_lines)
+                # 把数据写入up_info 表中 name相同的videos一列
+                sql = f"UPDATE up_info SET videos={non_empty_lines} WHERE name='{name}'"
+                cursor = db.cursor()
+                cursor.execute(sql)
+                db.commit()
+                print(f"{filename} has {non_empty_lines} non-empty lines.")
+                non_empty_lines_count += non_empty_lines
+    return non_empty_lines_count

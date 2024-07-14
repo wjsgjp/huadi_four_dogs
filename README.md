@@ -108,15 +108,16 @@ GET http://127.0.0.1:5000/up?name=新华社&fans=True
 
 返回的 JSON 数组包含以下字段：
 
-| 字段名称 | 数据类型 | 描述 |
-| --- | --- | --- |
-| `uid` | string | UP主的唯一标识符 |
+| 字段名称      | 数据类型 | 描述         |
+|-----------| --- |------------|
+| `uid`     | string | UP主的唯一标识符  |
 | `img_url` | text | UP主的头像 URL |
-| `name` | string | UP主的名称 |
-| `profile` | string | UP主的简介 |
-| `fans` | integer | UP主的粉丝数量 |
-| `likes` | integer | UP主的点赞数量 |
-| `plays` | integer | UP主的播放数量 |
+| `name`    | string | UP主的名称     |
+| `profile` | string | UP主的简介     |
+| `fans`    | integer | UP主的粉丝数量   |
+| `likes`   | integer | UP主的点赞数量   |
+| `plays`   | integer | UP主的播放数量   |
+| `videos`  | integer | UP主的视频数量   |
 
 
 
