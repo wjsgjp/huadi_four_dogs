@@ -1,6 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, url_for, jsonify
 from UP_analys.up_video_analys  import select_videos
 from UP_analys.up_info_analys import select_up_info
+from markupsafe import escape
+from user_analys.distribution import get_user_img_url
 app = Flask(__name__)
 
 @app.route('/')
@@ -52,5 +54,14 @@ def select_up():
 @app.route('/recommend',methods=['GET'])
 def recommed():
     return "welcomte to recommend"
+
+@app.route('/user',methods=['GET'])
+def user_analys():
+    user_png=get_user_img_url()
+    img_urls=[ ]
+    for filename in user_png:
+        img_urls.append(url_for('static', filename=filename))
+    return jsonify({'image_url': img_urls})
+
 if __name__ == '__main__':
     app.run()

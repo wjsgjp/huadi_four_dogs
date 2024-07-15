@@ -25,7 +25,7 @@ def select_up_info(name=None, profile=None, fans_limit=None, likes=None, plays=N
 
     if fans_limit:
         # 按照粉丝数量排序
-        query += f" AND fans>= '{fans_limit}  "
+        query += f" AND fans>= {fans_limit}  "
 
     if likes:
         # 按照点赞数量排序
@@ -44,6 +44,8 @@ def select_up_info(name=None, profile=None, fans_limit=None, likes=None, plays=N
     columns = [desc[0] for desc in cursor.description]
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
+    #去除profile里的空格与回车
+    df['profile'] = df['profile'].apply(lambda x: x.replace('\n', '').replace(' ', ''))
     result_json = df.to_json(orient='records', force_ascii=False)
     return result_json
 #获取UP主头像
