@@ -45,8 +45,15 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
         query += " ORDER BY share DESC"
     elif favorite:
         query += " ORDER BY favorite DESC"
+    elif danmaku:
+        query += " ORDER BY danmaku DESC"
+    elif reply:
+        query += " ORDER BY reply DESC"
+    else:
+        query += " ORDER BY view DESC"
 
     cursor.execute(query)
+    print(query)
     result = cursor.fetchall()
     # 转换为dataframe
     columns = [desc[0] for desc in cursor.description]
@@ -54,6 +61,7 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
     result_json = df.to_json(orient='records', force_ascii=False)
+
     return result_json
 
 

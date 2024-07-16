@@ -1,11 +1,12 @@
 from flask import Flask, request
 from UP_analys.up_video_analys  import select_videos
+from UP_analys.up_info_analys import select_up_info
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
-@app.route('/videos', methods=['GET'])
+@app.route('/up/videos', methods=['GET'])
 def select_video():
     bid = request.args.get('bid')
     title = request.args.get('title')
@@ -30,7 +31,22 @@ def select_video():
 
 @app.route('/up',methods=['GET'])
 def select_up():
-    return "welcomte to up"
+    # 获取参数
+    #按照up主名字搜索
+    name=request.args.get('name')
+    # 按照up主简介搜索
+    profile=request.args.get('profile')
+    # 按照up主uid搜索
+    uid = request.args.get('uid')
+    # 按照粉丝数搜索（下界）
+    fans_limit=request.args.get('fans_limit')
+    # 按照up主点赞数降序
+    likes=request.args.get('likes')
+    # 按照up主播放数降序
+    plays=request.args.get('plays')
+    result_json=select_up_info(name,profile,fans_limit,likes,plays,uid)
+    return result_json
+
 
 
 @app.route('/recommend',methods=['GET'])
