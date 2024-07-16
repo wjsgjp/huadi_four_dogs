@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, url_for, jsonify
 from UP_analys.up_video_analys  import select_videos
 from UP_analys.up_info_analys import select_up_info
 from markupsafe import escape
-from user_analys.distribution import get_user_img_url
+from user_analys.distribution import get_user_img_url,get_user_heat_map_url
 app = Flask(__name__)
 
 @app.route('/')
