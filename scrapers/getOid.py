@@ -30,7 +30,7 @@ def getOid(bv):
     driver = webdriver.Chrome(options=option)
 
     driver.get("https://www.bilibili.com/video/" + bv)
-    sleep(0.5)
+    sleep(3)
 
     # sleep(5)
     # t1 = time()
@@ -51,12 +51,13 @@ def getOid(bv):
         # requestId = message.get('params').get('requestId')  # 唯一的请求标识符。相当于该请求的身份证
         url = message.get('params').get('response').get('url')  # 获取 该请求  url
         if 'oid=' in url:
-            pattern = r'oid=(.*?)&'
-            match = re.search(pattern, url)
-            if match is not None:
-                return match.group(1)
-            else:
-                return getOid(bv)
+            # pattern = r'oid=(.*?)&'
+            # match = re.search(pattern, url)
+            # if match is not None:
+            #     return match.group(1)
+            # else:
+            #     return getOid(bv)
+            print(url)
     print(time()-t1)
 
 print(getOid('BV1kr421T7z4'))
