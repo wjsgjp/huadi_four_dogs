@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Analysis</title>
+</head>
+<body>
+    <h1>User Analysis</h1>
+    {% for img_url in image_data %}
+    <img src="{{ img_url }}" alt="Image">
+    {% endfor %}
+</body>
+</html>

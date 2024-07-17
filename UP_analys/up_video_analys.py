@@ -60,6 +60,8 @@ def select_videos(bid=None, title=None, pubdate_start=None, pubdate_end=None, du
 
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
+    #去除df中bid重复的，保留第一个
+    df = df.drop_duplicates(subset=['bid'], keep='first')
     result_json = df.to_json(orient='records', force_ascii=False)
 
     return result_json

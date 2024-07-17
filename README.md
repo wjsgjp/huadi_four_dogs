@@ -160,6 +160,3 @@ GET http://127.0.0.1:5000/danmaku?bv=BV17b421e7Ei&date=2024-7-16
 |date|string|是|YYYY-MM-DD格式的当前日期|
 
 **响应：**
-
-
-
