@@ -17,6 +17,7 @@ def wordcloud_bv(content,bv):
     stopwords_list = list(stopwords['stopwords'])  # 将停用词转换为列表
 
     text = ' '.join([word for word in text.split() if word not in stopwords_list])
+    print(text)
     # 读取背景图片
     background_image = np.array(Image.open('D:\\bili\\video_analys\\img.png'))
 

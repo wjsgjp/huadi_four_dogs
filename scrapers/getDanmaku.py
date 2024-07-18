@@ -89,4 +89,4 @@ def getDanmaku(bv, curDate):
     # 保存数据
     return content_list
 
-getDanmaku('BV17b421e7Ei', '2024-7-16')
+
