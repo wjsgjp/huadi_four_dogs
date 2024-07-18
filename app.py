@@ -3,6 +3,8 @@ from UP_analys.up_video_analys  import select_videos
 from UP_analys.up_info_analys import select_up_info
 from markupsafe import escape
 from user_analys.distribution import get_user_img_url,get_user_heat_map_url
+from scrapers.getDanmaku import  getDanmaku
+from video_analys.wordcloud import wordcloud_bv
 app = Flask(__name__)
 
 @app.route('/')
@@ -50,18 +52,30 @@ def select_up():
     return result_json
 
 
-
-@app.route('/recommend',methods=['GET'])
-def recommed():
-    return "welcomte to recommend"
-
-@app.route('/user',methods=['GET'])
+@app.route('/user_analys',methods=['GET'])
 def user_analys():
     user_png=get_user_img_url()
     img_urls=[ ]
     for filename in user_png:
         img_urls.append(url_for('static', filename=filename))
     return jsonify({'image_url': img_urls})
+@app.route('/video_analys',methods=['GET'])
+def video_analys():
+    #获取想要展示的分区名字
+    partition_nanme=request.args.get('partition_name')
+
+
+@app.route('/recommend',methods=['GET'])
+def recommend():
+
+    return "welcomte to recommend"
+@app.route('/danmu_wordcloud',methods=['GET'])
+def danmu_wordcloud():
+    bv=request.args.get('bv')
+    date=request.args.get('date')
+    danmakulist=getDanmaku(bv,date)
+    img_url=wordcloud_bv(danmakulist,bv)
+    return jsonify({'image_url': img_url})
 
 if __name__ == '__main__':
     app.run()
