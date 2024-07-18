@@ -52,8 +52,8 @@ def getDanmaku(bv, curDate):
     print(url)
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'cookie': 'buvid3=4A0421A6-20F9-29DB-5D32-D6673056E9BF31924infoc; b_nut=1718016531; _uuid=1D65FAE2-6A86-46C3-610105-9BECC2B3859F32633infoc; enable_web_push=DISABLE; DedeUserID=48002287; DedeUserID__ckMd5=be7b54b6f8c02f7a; header_theme_version=CLOSE; rpdid=0zbfVGbwlN|emrFgv9m|34P|3w1SgCAz; CURRENT_QUALITY=80; fingerprint=6f18e1821ef7aaf9e9dafaa65e4fb2e1; buvid_fp_plain=undefined; buvid4=540E941F-F4C2-4E75-25A7-6135D0C343ED32675-024061010-%2BoqH4JWpvfIOkbWcOWAb2uGZwrqLAPoF9BKMMtVS3dbhvHdeJA0PPF4D%2BJlhZeVU; LIVE_BUVID=AUTO5017193226842845; is-2022-channel=1; CURRENT_BLACKGAP=0; PVID=1; buvid_fp=6f18e1821ef7aaf9e9dafaa65e4fb2e1; home_feed_column=5; hit-dyn-v2=1; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjExMzIxODEsImlhdCI6MTcyMDg3MjkyMSwicGx0IjotMX0.rGsF2g-1F59q-li7SzieOeQHBuxmWuod5jyCLAPmBPQ; bili_ticket_expires=1721132121; SESSDATA=7b8f2a35%2C1736427340%2C2ea2a%2A72CjCA-DToinsih4Q3dJ3G-_IDzgOFUY3Rdj_FfH1W81zVNoC3_-exBkiaHAzAMmYWDYUSVmw0NEh2X09jS1hmREtMc0JpS1c2azZ2Zmc1enpUZDFJTVVwemptR2h3ckJKcmhlcml1X0U5QTA5QnVzS0tpZWVGdFhTVl9kWGwtcF9XNkozLVFidm1RIIEC; bili_jct=5a7127cf5ac87fc687b42175f38c4d12; sid=4kqg0i5i; CURRENT_FNVAL=4048; bp_t_offset_48002287=954034329476923392; b_lsid=1810B8F58_190B1D9533B; browser_resolution=1612-470'
-    }
+        'cookie':"buvid3=70245222-8B53-FE5E-2312-00AE0056DB4A91540infoc; b_nut=1719119091; _uuid=B2E14C3A-E99E-2B26-10D103-E1096BC7A10CC699940infoc; enable_web_push=DISABLE; header_theme_version=CLOSE; rpdid=|(umuk|J|lmk0J'u~umuumu|); fingerprint=44e040ac4c0fc6494559a898f04bf612; buvid_fp_plain=undefined; is-2022-channel=1; CURRENT_BLACKGAP=0; buvid4=EE264535-D31F-70BE-84FA-1013E49EF32457766-024021605-UGqFWAacUD6T%2BsjFcxWADQ%3D%3D; bp_t_offset_1099677556=953923562270359552; DedeUserID=646950291; DedeUserID__ckMd5=0f62835e2c322395; bsource=search_bing; SESSDATA=daf4ca2d%2C1736759006%2C1879e%2A72CjCfIhaMDdldO2x1WxfrN6aRopUvo_8vz1C33J_j1Sxg9XVIPtwDpMO6TJdbtV7ZzJsSVmFPYzhyQkd2bDVGOU9aQUNIdHktakhVSXBNb0dHUE45aEhXcEJSMTBRcU4zYXEtQTBwREtnMTE0WXFEU1ByOXVLMDFJRlBlMEVlaTl5dUpNODZ4SV9RIIEC; bili_jct=08b669ea54230527630abe8e18cae476; sid=6d07aqc6; LIVE_BUVID=AUTO3417212073685102; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjE0NjY1NzAsImlhdCI6MTcyMTIwNzMxMCwicGx0IjotMX0.xEBwrf8gzNfsUi69r0c67CxmT9wyoHU0Y6ewOz1iNRM; bili_ticket_expires=1721466510; PVID=1; CURRENT_FNVAL=4048; buvid_fp=44e040ac4c0fc6494559a898f04bf612; bp_t_offset_646950291=955130675713802240; b_lsid=DEB105AF3_190C47F4215; home_feed_column=4; browser_resolution=696-830"
+        }
     response = requests.get(url=url, headers=headers)
     response.encoding = 'utf-8'
     temp_list = re.findall('[\u4e00-\u9fa5]+', response.text)
@@ -65,4 +65,4 @@ def getDanmaku(bv, curDate):
     content = '\n'.join(content_list)
     return content_list
 
-getDanmaku('BV17b421e7Ei', '2024-7-16')
+

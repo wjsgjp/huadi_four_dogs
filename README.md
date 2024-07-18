@@ -150,7 +150,7 @@ GET http://127.0.0.1:5000/up?name=新华社&fans=True
 
 **方法：**GET
 ```http request
-GET http://127.0.0.1:5000/danmaku?bv=BV17b421e7Ei&date=2024-7-16
+GET http://127.0.0.1:5000/danmu_wordcloud?bv=BV17b421e7Ei&date=2024-7-16
 ```
 **参数：**
 
@@ -159,4 +159,9 @@ GET http://127.0.0.1:5000/danmaku?bv=BV17b421e7Ei&date=2024-7-16
 |bv|string|是|需获得弹幕的视频的bv号|
 |date|string|是|YYYY-MM-DD格式的当前日期|
 
-**响应：**
+**响应：**\
+```json
+{
+    "image_url": "D:\\bili\\static\\danmaku_wordcloud\\BV1XM4m117wz.png"
+}
+```
