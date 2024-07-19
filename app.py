@@ -67,7 +67,7 @@ def user_analys():
 def video_analys():
     #获取想要展示的分区名字
     partition_nanme=request.args.get('partition_name')
-
+    return "123"
 
 @app.route('/recommend_videos',methods=['GET'])
 def recommend_videos():

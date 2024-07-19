@@ -1,7 +1,8 @@
 #连接mysql数据库
 import pymysql
 import pandas as pd
-db = pymysql.connect(host='localhost', user='root', password='18921190757ytk', database='zion')
+from database_connect import connect
+db=connect()
 
 def recommend_video(partition):
     cursor = db.cursor()
