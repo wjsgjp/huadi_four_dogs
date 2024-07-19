@@ -2,6 +2,12 @@
 获得所有番剧信息
 # getDanmaku.py
 获得特定视频所有弹幕信息，以list返回
+
+参数：
+
+|bv|startdate|
+|---|-------|
+|视频bv号|视频发布时间（YYYY-MM-DD）|
 # getOid.py
 获得视频oid
 # getTops.py
