@@ -5,10 +5,11 @@ from UP_analys.up_video_analys  import select_videos
 from UP_analys.up_info_analys import select_up_info
 from markupsafe import escape
 from user_analys.distribution import get_user_img_url,get_user_heat_map_url
-from scrapers.getDanmaku import  getDanmaku
-from video_analys.wordcloud import wordcloud_bv
+from scrapers.getDanmaku import getDanmaku
+from video_analys.wordcloud import wordcloud_bv,get_pubdate
 from recommend.video_recommend import recommend_video
 from recommend.up_recommend import recommend_up_inter,recommend_up_like
+from bangumi.video_bangumi import select_bangumi
 app = Flask(__name__)
 
 @app.route('/')
@@ -87,16 +88,30 @@ def recommend_ups():
 @app.route('/danmu_wordcloud',methods=['GET'])
 def danmu_wordcloud():
     bv=request.args.get('bv')
-    date=request.args.get('date')
-    start_time=time.time()
+    #获得这个BV的上传时间
+    date=get_pubdate(bv)
     danmakulist=getDanmaku(bv,date)
-    print(time.time()-start_time)
     print("="*50)
     start_time=time.time()
     img_url=wordcloud_bv(danmakulist,bv)
     print(time.time()-start_time)
     print("="*50)
     return jsonify({'image_url': img_url})
+
+@app.route('/bangumi',methods=['GET'])
+def bangumi():
+    name=request.args.get('name')
+    profile=request.args.get('profile')
+    tags=request.args.get('tags')
+    score_limit=request.args.get('score_limit')
+    score_people=request.args.get('score_people')
+    start_time=request.args.get('start_time')
+    end_time=request.args.get('end_time')
+    danmaku=request.args.get('danmaku')
+    fans_limit=request.args.get('fans_limit')
+    plays=request.args.get('plays')
+    result=select_bangumi(name=name, profile=profile, fans_limit=fans_limit, score_limit=score_limit,score_people=score_people, plays=plays,tags=tags,danmaku=danmaku,start_time=start_time,end_time=end_time)
+    return result
 
 if __name__ == '__main__':
     app.run()

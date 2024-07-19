@@ -3,8 +3,9 @@ from time import sleep
 
 import requests
 import google.protobuf.text_format as text_format
-import dm_pb2 as Danmaku
-from getOid import get_video_cid
+from scrapers.getOid import get_video_cid
+import scrapers.dm_pb2 as Danmaku
+
 import re
 
 def getDanmaku(bv,startdate):
@@ -34,15 +35,9 @@ def getDanmaku(bv,startdate):
             pattern = r'content:(.*?)\n'
             tmp_res_list.append(re.findall(pattern, res, re.DOTALL)[0].replace('"', ''))
         resList.extend(tmp_res_list)
-        if len(resList)>=4000:
+        if len(resList)>=2000:
             break
 
     return resList
 
 
-res = getDanmaku('BV1Uw4m1Y76n', '2024-06-21')
-# for i in range(len(res)):
-#     if res[i]==res[1]:
-#         print(i)
-print(res)
-print(len(res))

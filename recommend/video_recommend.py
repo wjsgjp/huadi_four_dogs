@@ -16,7 +16,7 @@ def recommend_video(partition):
     columns = [desc[0] for desc in cursor.description]
     # Convert result to DataFrame
     df = pd.DataFrame(result, columns=columns)
-        #去除profile里的空格与回车
+    #去除profile里的空格与回车
     df = df.drop_duplicates(subset=['bid'], keep='first')
     result_json = df.to_json(orient='records', force_ascii=False)
     return result_json

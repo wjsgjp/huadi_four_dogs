@@ -150,14 +150,14 @@ GET http://127.0.0.1:5000/up?name=新华社&fans=True
 
 **方法**：`GET`
 ```http request
-GET http://127.0.0.1:5000/danmu_wordcloud?bv=BV17b421e7Ei&date=2024-7-16
+GET http://127.0.0.1:5000/danmu_wordcloud?bv=BV17b421e7Ei
 ```
 **参数：**
 
 | 参数名称 | 参数类型 | 是否必填 | 参数描述 |
 |------|------|------|------|
 |bv|string|是|需获得弹幕的视频的bv号|
-|date|string|是|YYYY-MM-DD格式的当前日期|
+
 
 **响应：**\
 ```json
@@ -285,3 +285,64 @@ GET http://127.0.0.1:5000/recommend_ups?partition=all&order=like
 ```
 
 
+# 番剧查询接口文档
+
+## 接口描述
+
+该接口用于查询番剧信息，支持多种查询参数和排序方式。
+
+## 请求URL
+
+**GET**  `/bangumi`
+
+## 请求参数
+
+| 参数名       | 类型   | 是否必填 | 说明                                  |
+|--------------|------|----------|-------------------------------------|
+| name         | string | 否       | 番剧名称，模糊匹配                           |
+| profile      | string | 否       | 番剧简介，模糊匹配                           |
+| tags         | string | 否       | 标签，模糊匹配                             |
+| fans_limit   | int  | 否       | 粉丝数下限                               |
+| score_limit  | int  | 否       | 最低评分 (默认排序为score排序，score相同按照fans排序) |
+| score_people | boolean | 否       | 按评分人数排序                             |
+| danmaku      | boolean | 否       | 按弹幕数量排序                             |
+| plays        | boolean | 否       | 按播放量排序                              |
+| start_time   | string | 否       | 开始时间，格式为`YYYY-MM-DD HH:mm:ss`       |
+| end_time     | string | 否       | 结束时间，格式为`YYYY-MM-DD HH:mm:ss`       |
+
+
+
+
+## 请求示例
+
+**GET** `/bangumi?name=JOJO&score_limit=8&start_time=2022-01-01 00:00:00&end_time=2022-12-31 23:59:59&plays=1`
+## 响应参数
+
+| 字段名          | 类型   | 说明   |
+|--------------|--------|------|
+| name         | string | 番剧名称 |
+| profile      | string | 番剧简介 |
+| tags         | string | 标签   |
+| score        | float  | 评分   |
+| score_people | int    | 评分人数 |
+| start_time   | string | 开播时间 |
+| danmaku      | int    | 弹幕数量 |
+| fans         | int    | 追番人数 |
+| plays        | int    | 播放量  |
+| cover_url    | string | 封面图片 |
+
+## 响应示例
+
+```json
+{"cover_url":"https:\/\/i0.hdslb.com\/bfs\/bangumi\/image\/14ccd8457a9b7351e7be1d87db2719791108ddc0.png@338w_450h.webp",
+ "name":"JOJO的奇妙冒险石之海",
+ "tags":"漫画改,热血,战斗,奇幻",
+ "plays":310000000,
+ "fans":31000,
+ "danmaku":1617000,
+ "score":9.8,
+ "score_people":101326,
+ "start_time":1669852800000,
+ "profile":"简介：西历2011年，美国·佛罗里达州。在与恋人兜风途中遇到了交通事故的空条徐伦，因被陷害而获刑15年。收容设施是州立绿海豚街重警备监狱——别名「水族馆」。深陷绝望之中的徐伦，在手握父亲所托的吊坠时，她觉醒了不可思议的力量。“这个世界上存在着比死还恐怖的事情，而这一切都将在这所监狱中发生”徐伦面前出现的神秘少年所传达的信息，不断发生的不可思议的事件，前来探视的父亲·空条承太郎所说的令人恐惧的现实，以及名为DIO之人……空条徐伦究竟能否从这所「石之海」一般的监狱中重获自由？给持续百年之久的乔斯达一族与DIO之间的宿命画上..."
+}
+```
