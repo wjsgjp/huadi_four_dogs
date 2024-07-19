@@ -148,7 +148,7 @@ GET http://127.0.0.1:5000/up?name=新华社&fans=True
 **描述：**
 获取特定视频的所有弹幕
 
-**方法：**GET
+**方法**：`GET`
 ```http request
 GET http://127.0.0.1:5000/danmu_wordcloud?bv=BV17b421e7Ei&date=2024-7-16
 ```
@@ -162,6 +162,126 @@ GET http://127.0.0.1:5000/danmu_wordcloud?bv=BV17b421e7Ei&date=2024-7-16
 **响应：**\
 ```json
 {
-    "image_url": "D:\\bili\\static\\danmaku_wordcloud\\BV1XM4m117wz.png"
+    "image_url": "static/danmaku_wordcloud/BV1Uu4y1h7bd.png"
 }
 ```
+
+
+# 推荐视频
+
+
+## 推荐视频 API
+
+`GET /recommend_videos`
+
+### 描述
+此端点返回推荐视频列表。视频可以根据指定的分区进行过滤，或者显示所有分区的视频。
+
+### 请求参数
+
+| 参数        | 类型   | 是否必填 | 描述                                        |
+|-------------|--------|------|-------------------------------------------|
+| `partition` | String | 是    | 要过滤视频的分区名。可以是特定的分区名，或使用 "all" 来获取所有分区的视频。 |
+
+### 示例请求
+
+**GET 请求:**
+
+```http
+GET http://127.0.0.1:5000/recommend_videos?partition=all
+```
+
+#### 响应参数
+
+| 参数名称  | 参数描述             |
+|-------|------------------|
+| `bid` | 视频ID             |
+| `pic` | 封面图片URL          |
+| `title` | 视频标题             |
+| `pubdate` | 发布日期（Unix时间戳，毫秒） |
+| `duration` | 视频时长（秒）          |
+| `view` | 播放量              |
+| `like` | 点赞数              |
+| `coin` | 硬币数              |
+| `share` | 分享数              |
+| `danmaku` | 弹幕数              |
+| `reply` | 评论数              |
+| `favorite` | 收藏数              |
+| `uid` | 用户ID             |
+| `uname` | 用户名              |
+| `tags` | 标签               |
+ | `par` | 分区名              |
+  | `rank` | 推荐视频的排名          |
+
+```json
+{"bid":"BV1Uu4y1h7bd",
+ "pic":"http:\/\/i2.hdslb.com\/bfs\/archive\/610a8568f780aa0abc55cdddb1f1c09c8aa5a7f5.jpg",
+ "title":"商标被抢注？影视飓风认识多少个UP主？700万粉丝Q&A！",
+ "pubdate":1699045200000,
+ "duration":786,
+ "view":3524362,
+ "like":293341,
+ "coin":113086,
+ "share":9366,
+ "danmaku":21076,
+ "reply":4388,
+ "favorite":54510,
+ "uid":946974,
+ "uname":"影视飓风",
+ "tags":"万物研究所,生活记录,4K,搞笑,UP主,吐槽,自媒体,干货,Q&A,健将,万物研究所·第11期",
+ "par":"生活",
+ "rank":6.8531941392
+}
+```
+
+
+
+# 推荐UP主 API
+
+### 端点
+`GET /recommend_ups`
+
+### 描述
+此端点返回推荐的UP主列表。UP主可以根据指定的分区和排序方式进行过滤。
+
+### 请求参数
+
+| 参数        | 类型   | 是否必填 | 描述                                          |
+|-------------|--------|------|---------------------------------------------|
+| `partition` | String | 是    | 要过滤UP主的分区名。可以是特定的分区名，或使用 "all" 来获取所有分区的UP主。 |
+| `order`     | String | 是    | 排序方式。可以是 `like` 根据点赞数排序，或 `inter` 根据互动数排序。  |
+
+### 示例请求
+
+**GET 请求:**
+
+```http
+GET http://127.0.0.1:5000/recommend_ups?partition=all&order=like
+```
+### 响应参数
+
+| 字段名称      | 数据类型    | 描述         |
+|-----------|---------|------------|
+| `uid`     | string  | UP主的唯一标识符  |
+| `img_url` | text    | UP主的头像 URL |
+| `name`    | string  | UP主的名称     |
+| `profile` | string  | UP主的简介     |
+| `fans`    | integer | UP主的粉丝数量   |
+| `likes`   | integer | UP主的点赞数量   |
+| `plays`   | integer | UP主的播放数量   |
+| `videos`  | integer | UP主的视频数量   |
+| `par`     | string  | UP主的分区     |
+
+```json
+{"uid":151482404,
+ "par":"知识",
+ "name":"赛雷话车",
+ "profile":"赛雷话车，爷爷看了都说懂",
+ "fans":1849806,
+ "likes":20902587,
+ "plays":168116498,
+ "videos":274,
+ "img_url":"\/\/i2.hdslb.com\/bfs\/face\/a762bcb3b35ee903715102fae85a0cb9f0885d00.jpg@240w_240h_1c_1s_!web-avatar-space-header.avif"}
+```
+
+

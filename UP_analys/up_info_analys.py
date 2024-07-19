@@ -7,7 +7,8 @@ import urllib.parse
 import time
 import requests
 import pymysql
-db = pymysql.connect(host='localhost', user='root', password='18921190757ytk', database='zion')
+from database_connect import connect
+db=connect()
 import pandas as pd
 
 import datetime

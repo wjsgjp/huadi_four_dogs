@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, request, render_template, url_for, jsonify
 from UP_analys.up_video_analys  import select_videos
 from UP_analys.up_info_analys import select_up_info
@@ -5,6 +7,8 @@ from markupsafe import escape
 from user_analys.distribution import get_user_img_url,get_user_heat_map_url
 from scrapers.getDanmaku import  getDanmaku
 from video_analys.wordcloud import wordcloud_bv
+from recommend.video_recommend import recommend_video
+from recommend.up_recommend import recommend_up_inter,recommend_up_like
 app = Flask(__name__)
 
 @app.route('/')
@@ -63,18 +67,35 @@ def user_analys():
 def video_analys():
     #获取想要展示的分区名字
     partition_nanme=request.args.get('partition_name')
+    return "123"
 
+@app.route('/recommend_videos',methods=['GET'])
+def recommend_videos():
+    partition=request.args.get('partition')
+    result=recommend_video(partition)
+    return result
 
-@app.route('/recommend',methods=['GET'])
-def recommend():
+@app.route('/recommend_ups',methods=['GET'])
+def recommend_ups():
+    partition=request.args.get('partition')
+    order=request.args.get('order')
+    if order=='like':
+        return recommend_up_like(partition)
+    if order=='inter':
+        return recommend_up_inter(partition)
 
-    return "welcomte to recommend"
 @app.route('/danmu_wordcloud',methods=['GET'])
 def danmu_wordcloud():
     bv=request.args.get('bv')
     date=request.args.get('date')
+    start_time=time.time()
     danmakulist=getDanmaku(bv,date)
+    print(time.time()-start_time)
+    print("="*50)
+    start_time=time.time()
     img_url=wordcloud_bv(danmakulist,bv)
+    print(time.time()-start_time)
+    print("="*50)
     return jsonify({'image_url': img_url})
 
 if __name__ == '__main__':
