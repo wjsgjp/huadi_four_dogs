@@ -86,7 +86,6 @@ def recommend_ups():
 
 @app.route('/danmu_wordcloud',methods=['GET'])
 def danmu_wordcloud():
-
     bv=request.args.get('bv')
     date=request.args.get('date')
     start_time=time.time()
